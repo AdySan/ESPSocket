@@ -1,0 +1,114 @@
+<html>
+<!-- Copyright (C) 2015 <>< Charles Lohr, see LICENSE file for more info.
+This particular file may be licensed under the MIT/x11, New BSD or ColorChord Licenses. -->
+<head>
+<title>ESPSocket</title>
+<script language="javascript" type="text/javascript" src=jquery-2.1.4.min.js></script>
+<script language="javascript" type="text/javascript" src=menuinterface.js></script>
+<meta charset="UTF-8">
+<style>
+
+#dragandrophandler
+{
+border:2px dotted #0B85A1;
+width:400px;
+color:#92AAB0;
+text-align:left;vertical-align:middle;
+padding:10px 10px 10 10px;
+margin-bottom:10px;
+font-size:200%;
+}
+.progressBar {
+    width: 200px;
+    height: 22px;
+    border: 1px solid #ddd;
+    border-radius: 5px; 
+    overflow: hidden;
+    display:inline-block;
+    margin:0px 10px 5px 5px;
+    vertical-align:top;
+}
+ 
+.progressBar div {
+    height: 100%;
+    color: #fff;
+    text-align: right;
+    line-height: 22px; /* same as #progressBar height if we want text middle aligned */
+    width: 0;
+    background-color: #0ba1b5; border-radius: 3px; 
+}
+.statusbar
+{
+    border-top:1px solid #A9CCD1;
+    min-height:25px;
+    width:700px;
+    padding:10px 10px 0px 10px;
+    vertical-align:top;
+}
+.statusbar:nth-child(odd){
+    background:#EBEFF0;
+}
+.filename
+{
+display:inline-block;
+vertical-align:top;
+width:250px;
+}
+.filesize
+{
+display:inline-block;
+vertical-align:top;
+color:#30693D;
+width:100px;
+margin-left:10px;
+margin-right:5px;
+}
+.abort{
+    background-color:#A8352F;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    border-radius:4px;display:inline-block;
+    color:#fff;
+    font-family:arial;font-size:13px;font-weight:normal;
+    padding:4px 15px;
+    cursor:pointer;
+    vertical-align:top
+    }
+
+table { width: 100%; }
+td { vertical-align: top; }
+.collapsible { display:none; }
+.inbutton { background-color:blue; }
+#SystemMessage { position: fixed; top: 5px; background-color: DarkSlateBlue; color: #ffffff; left: 5px; display:none; }
+</style>
+</head>
+<body style="font-family: HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;>
+<h2>ESPSocket: Websockets Test Page</h2>
+<hr>
+
+<table id="MainMenu">
+
+<tbody>
+
+<tr><td width=1>
+<input type=submit onclick="ShowHideEvent( 'Introduction' );" value="Introduction"></td><td>
+<div id=Introduction class="collapsible">
+<table border=1><tr><td>
+<p>Welcome to ESP8266 Interface</p>
+<p>This project demostrates WebSockets using the Arduino port of ESP8266. It uses some awesome projects like <a href=https://github.com/Links2004/arduinoWebSockets>arduinoWebSockets</a> and <a href=https://github.com/cnlohr/colorchord>ColorChord: Embedded</a>.</p>
+<p>I've tried to port some of the WebSockets functionality from ColorChord: Embedded to work with the Arduino port of ESP8266</p>
+<p>It uses the SPIFFS file system on the ESP8266 to host a bunch of webpages. It also supports OTA firmware updates.</p>
+<p>Note: This is a work in progress! Some things are still broken.</p>
+
+</div></td></tr></table></td></tr>
+
+</tbody>
+
+</table>
+
+<p><font size=-2>Copyright (C) 2015 Aditya Tannu</font></p>
+<div id=SystemMessage>...</div>
+</body>
+</html>
+
+
