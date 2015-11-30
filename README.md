@@ -3,8 +3,6 @@ ESPSocket: Websockets for ESP8266
 
 ![Connected!](/Connected.png)
 
-Welcome to ESP8266 Interface
-
 This project demostrates WebSockets using the Arduino port of ESP8266. It uses some awesome projects like arduinoWebSockets and ColorChord: Embedded. I've tried to port some of the WebSockets functionality from ColorChord: Embedded to work with the Arduino port of ESP8266
 It uses the SPIFFS file system on the ESP8266 to host a bunch of webpages. It also supports OTA firmware updates.
 
@@ -21,7 +19,7 @@ Note: This is a work in progress! Some things are still broken.
  - Arduino IDE from [here](https://github.com/arduino/Arduino/pull/4107). OTA updates will not work with 1.6.6 until this PR is merged. 
  - Git version of esp8266/Arduino from [here](https://github.com/esp8266/Arduino)
   
-##### Uses project #####
+##### Used projects #####
  - [ColorChord: Embedded](https://github.com/cnlohr/colorchord)
  - [arduinoWebSockets](https://github.com/Links2004/arduinoWebSockets)
  - [BasicOTA Example](https://github.com/esp8266/Arduino/tree/master/libraries/ArduinoOTA/examples/BasicOTA)

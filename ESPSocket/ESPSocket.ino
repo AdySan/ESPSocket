@@ -1,6 +1,5 @@
 #include <Arduino.h>
 #include "pin_mux_register.h"
-// #include "mystuff.h"
 #include <ESP8266WiFi.h>
 #include <ESP8266WiFiMulti.h>
 #include <WiFiClient.h>
@@ -20,7 +19,7 @@ const char* ssid = "SSID";
 const char* password = "password";
 const char* host = "ESPSocket";
 
-#define LEDPIN D8
+#define LEDPIN D0
 
 #define IN false
 #define OUT true
@@ -200,39 +199,6 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t lenght
               break;
 
             }
-
-            // if(text=="GF0"){
-            //   Serial.printf("[%u] Got message: %s\n", num, payload);
-            //   digitalWrite(LEDPIN, HIGH);
-            //   webSocket.sendTXT(0,"G\t0\t255");
-            // }
-            // else if(text=="GF1"){
-            //   Serial.printf("[%u] Got message: %s\n", num, payload);
-            //   digitalWrite(LEDPIN, LOW);
-            //   webSocket.sendTXT(0,"G\t0\t255");
-            // }
-            // else if(text=="GS"){ // GPIO Status request
-            //   Serial.printf("[%u] Got message: %s\n", num, payload);
-            //   webSocket.sendTXT(0,"G\t0\t255");
-            // }
-            // else if(text=="wx"){
-            //   // Serial.printf("[%u] Got message: %s\n", num, payload);
-            //   String rssi = String(WiFi.RSSI());
-            //   webSocket.sendTXT(0,rssi);
-            // }
-            // else if(text=="CVR"){
-            //   Serial.printf("[%u] Got message: %s\n", num, payload);
-            //   webSocket.sendTXT(0,"");
-            // }
-            // else if(text=="ping"){
-            //   Serial.printf("[%u] Got message: %s\n", num, payload);
-            //   webSocket.sendTXT(0,"pong");
-            // }
-            // else{
-            //    webSocket.sendTXT(0,"**** UNDEFINED ****");
-            // }
-
-
 
             break;
         case WStype_BIN:
