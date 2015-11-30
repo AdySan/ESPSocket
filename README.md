@@ -9,9 +9,10 @@ This project demostrates WebSockets using the Arduino port of ESP8266. It uses s
 It uses the SPIFFS file system on the ESP8266 to host a bunch of webpages. It also supports OTA firmware updates.
 
 Inspired by these two awesome videos:
- [![WebSockets for awesome on the ESP8266](http://img.youtube.com/vi/8ISbmQTbjDI/0.jpg)](http://www.youtube.com/watch?v=8ISbmQTbjDI)
 
- [![WebSocket ESP-WROOM-02(ESP8266) Android iPad](http://img.youtube.com/vi/q3SqUsdBtDY/0.jpg)](http://www.youtube.com/watch?v=q3SqUsdBtDY)
+[![WebSockets for awesome on the ESP8266](http://img.youtube.com/vi/8ISbmQTbjDI/0.jpg)](http://www.youtube.com/watch?v=8ISbmQTbjDI)
+
+[![WebSocket ESP-WROOM-02(ESP8266) Android iPad](http://img.youtube.com/vi/q3SqUsdBtDY/0.jpg)](http://www.youtube.com/watch?v=q3SqUsdBtDY)
 
 
 Note: This is a work in progress! Some things are still broken.
