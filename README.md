@@ -38,6 +38,8 @@ Note: This is a work in progress! Some things are still broken.
 
 ##### Screenshots #####
 
+ - Uploading html and js files to the [SPIFFS](https://github.com/esp8266/Arduino/blob/master/doc/filesystem.md)
 ![SPIFFSupload](/SPIFFSupload.png)
 
+ - All tabs expanded
 ![All Features](/all.png)
