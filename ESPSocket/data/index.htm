@@ -77,9 +77,16 @@ margin-right:5px;
 
 table { width: 100%; }
 td { vertical-align: top; }
+
+/*table {border-collapse: collapse;}
+table, td, th {border: 1px solid black; border: 1px solid green;}
+th {background-color: green; color: white;}
+*/
+
 .collapsible { display:none; }
 .inbutton { background-color:blue; }
 #SystemMessage { position: fixed; top: 5px; background-color: DarkSlateBlue; color: #ffffff; left: 5px; display:none; }
+
 </style>
 </head>
 <body style="font-family: HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;>
@@ -93,7 +100,7 @@ td { vertical-align: top; }
 <tr><td width=1>
 <input type=submit onclick="ShowHideEvent( 'Introduction' );" value="Introduction"></td><td>
 <div id=Introduction class="collapsible">
-<table border=1><tr><td>
+<table border=1 style="border-collapse: collapse; color: #000000; background-color: #EAF2D3;"><tr><td>
 <p>Welcome to ESP8266 Interface</p>
 <p>This project demostrates WebSockets using the Arduino port of ESP8266. It uses some awesome projects like <a href=https://github.com/Links2004/arduinoWebSockets>arduinoWebSockets</a> and <a href=https://github.com/cnlohr/colorchord>ColorChord: Embedded</a>.</p>
 <p>I've tried to port some of the WebSockets functionality from ColorChord: Embedded to work with the Arduino port of ESP8266</p>

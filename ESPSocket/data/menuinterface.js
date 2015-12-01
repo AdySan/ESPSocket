@@ -55,14 +55,14 @@ function init()
 		<tr><td width=1> \
 		<input type=submit onclick=\"ShowHideEvent( 'SystemStatus' );\" value='System Status' id=SystemStatusClicker></td><td> \
 		<div id=SystemStatus class='collapsible'> \
-		<table width=100% border=1><tr><td> \
-<div id=output> \n		</td></tr></table></div></td></tr>" );
+		<table width=100% border=1 style=\"border-collapse: collapse;\"><tr><td> \
+		<div id=output> \n</td></tr></table></div></td></tr>" );
 
 	$('#MainMenu > tbody:last-child').after( "\
 		<tr><td width=1> \
 		<input type=submit onclick=\"ShowHideEvent( 'WifiSettings' ); KickWifiTicker();\" value=\"Wifi Settings\"></td><td> \
 		<div id=WifiSettings class=\"collapsible\"> \
-		<table width=100% border=1><tr><td> \
+		<table width=100% border=1 style=\"border-collapse: collapse;\"><tr><td> \
 		Current Configuration: (May deviate from default configuration, reset here if in doubt)<form name=\"wifisection\" action=\"javascript:ChangeWifiConfig();\"> \
 		<table border=1 width=1%> \
 		<tr><td width=1>Type:</td><td><input type=\"radio\" name=\"wifitype\" value=1 onclick=\"ClickOpmode(1);\">Station (Connect to infrastructure)<br><input type=\"radio\" name=\"wifitype\" value=2 onclick=\"ClickOpmode(2);\">AP (Broadcast a new AP)</td></tr> \
@@ -80,7 +80,7 @@ function init()
 		<tr><td width=1> \
 		<input type=submit onclick=\"ShowHideEvent( 'CustomCommand' );\" value=\"Custom Command\"></td><td> \
 		<div id=CustomCommand class=\"collapsible\"> \
-		<table width=100% border=1><tr><td> \
+		<table width=100% border=1 style=\"border-collapse: collapse;\"><tr><td> \
 		Command: <input type=text id=custom_command> \
 		<input type=submit value=\"Submit\" onclick=\"IssueCustomCommand()\"><br> \
 		<textarea id=custom_command_response readonly rows=15 cols=80></textarea> \
@@ -89,7 +89,7 @@ function init()
 		<tr><td width=1> \
 		<input type=submit onclick=\"ShowHideEvent( 'GPIOs' ); GPIODataTicker();\" value=\"GPIOs NodeMCU0.9\"></td><td> \
 		<div id=GPIOs class=\"collapsible\"> \
-		<table width=100% border=1><tr> \
+		<table width=100% border=1 style=\"border-collapse: collapse;\"><tr> \
 		<td align=center>D3<input type=button id=ButtonGPIO0 value=0 onclick=\"TwiddleGPIO(0);\"><input type=button id=BGPIOIn0 value=In onclick=\"GPIOInput(0);\" class=\"inbutton\"></td> \
 		<td align=center>D10<input type=button id=ButtonGPIO1 value=0 onclick=\"TwiddleGPIO(1);\"><input type=button id=BGPIOIn1 value=In onclick=\"GPIOInput(1);\" class=\"inbutton\"></td> \
 		<td align=center>D4<input type=button id=ButtonGPIO2 value=0 onclick=\"TwiddleGPIO(2);\"><input type=button id=BGPIOIn2 value=In onclick=\"GPIOInput(2);\" class=\"inbutton\"></td> \
@@ -102,7 +102,7 @@ function init()
 		<td align=center>D5<input type=button id=ButtonGPIO14 value=0 onclick=\"TwiddleGPIO(14);\"><input type=button id=BGPIOIn14 value=In onclick=\"GPIOInput(14);\" class=\"inbutton\"></td> \
 		<td align=center>D8<input type=button id=ButtonGPIO15 value=0 onclick=\"TwiddleGPIO(15);\"><input type=button id=BGPIOIn15 value=In onclick=\"GPIOInput(15);\" class=\"inbutton\"></td> \
 		</tr></table></div></td></tr>\
-\
+		\
 		<tr><td width=1>\
 		<input type=submit onclick=\"ShowHideEvent( 'SystemReflash' );\" value=\"System Reflash\"></td><td>\
 		<div id=SystemReflash class=\"collapsible\">\
@@ -176,27 +176,25 @@ function Ticker()
 		if( time_since_hz > 3)
 		{
 			$('#SystemStatusClicker').css("color", "red" );
-			$('#SystemStatusClicker').prop( "value", "System Offline" );
+			$('#SystemStatusClicker').prop( "value", "Offline" );
 			if( commsup != 0 && !is_waiting_on_stations ) IssueSystemMessage( "WebSocket Connection Lost..." );
 			commsup = 0;
-			console.log('Calling StartWebSocket');
+			// console.log('Calling StartWebSocket');
 			StartWebSocket();
 		}
 		else
-			$('#SystemStatusClicker').prop( "value", "System " + 0 + "Hz" );
+			$('#SystemStatusClicker').prop( "value", "Online " + 0 + "Hz" );
 	}
 	else
 	{
 		time_since_hz = 0;
-		$('#SystemStatusClicker').prop( "value", "System " + lasthz + "Hz" );
+		$('#SystemStatusClicker').prop( "value", "Online " + lasthz + "Hz" );
 	}
 }
-
 
 function onMessage(evt)
 {
 	msg++;
-
 
 	if( commsup != 1 )
 	{
