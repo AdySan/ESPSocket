@@ -43,4 +43,4 @@ Note: This is a work in progress! Some things are still broken.
 ![All Features](/Screenshots/all.png)
 
  - The filesystem browser edit pane
-![EDIT pange](/Screenshotss/EditPane.png)
+![EDIT pange](/Screenshots/EditPane.png)
