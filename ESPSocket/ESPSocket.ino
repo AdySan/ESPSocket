@@ -96,102 +96,106 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t lenght
             // webSocket.broadcastTXT("message here");
           
             switch(payload[0]){
-              case 'w': // Request RSSI wx
-              rssi = String(WiFi.RSSI());
-              // Serial.printf("[%u] Got message: %s\n", num, payload);
-              webSocket.sendTXT(0,rssi);
-              break;
-
-             case 'C': // not sure... CVR
-              Serial.printf("[%u] Got message: %s\n", num, payload);
-              webSocket.sendTXT(0,"");
-              break;
-
-            case 'p': // ping, will reply pong
-              Serial.printf("[%u] Got message: %s\n", num, payload);
-              webSocket.sendTXT(0,"pong");
-              break;
-
-            case 'e': case 'E':   //Echo
-              webSocket.sendTXT(0,text);
-
-            case 'G': // GPIO
-            {
-          
-              // Serial.printf("[%u] Got message: %s\n", num, payload);
-              // webSocket.sendTXT(0,"G\t0\t255");
-              // break;
-
-              // nr = atoi( &textC[2] );
-               nr = atoi( &text[2] );
-              // nr = my_atoi( &textC[2] );
-
-              if( AFMapper[nr] == 1 ) // Not a GPIO
-              {
-                Serial.printf("[%u] Sorry, not a GPIO: %s\n", num, payload);  
-                ets_sprintf( b, "!G%c%d\n", payload[1], nr );
-                webSocket.sendTXT(0,b);
+              case 'w': case 'W':  // Request RSSI wx
+                rssi = String(WiFi.RSSI());
+                // Serial.printf("[%u] Got message: %s\n", num, payload);
+                webSocket.sendTXT(0,rssi);
                 break;
-              }
-              else if( AFMapper[nr] ) // It is a GPIO pin
-              {
-                PIN_FUNC_SELECT( AFMapper[nr], 3);  //Select AF pin to be GPIO.
-              }
 
-              switch( payload[1] )
+              case 'C': // not sure... CVR
+                Serial.printf("[%u] Got message: %s\n", num, payload);
+                webSocket.sendTXT(0,"");
+                break;
+
+              case 'p': // ping, will reply pong
+                Serial.printf("[%u] Got message: %s\n", num, payload);
+                webSocket.sendTXT(0,"pong");
+                break;
+
+              case 'e': case 'E':   //Echo
+                webSocket.sendTXT(0,text);
+
+              case 'G': // GPIO
               {
-                case '0':
-                case '1':
-                  Serial.printf("[%u] GPIO Set/Reset request: %s nr: %d\n", num, payload, nr);  
-                  // pinMode(GPIO_ID_PIN(nr), OUTPUT);
-                  digitalWrite(GPIO_ID_PIN(nr), payload[1]-'0' );
-                  ets_sprintf( b, "G%c%d", payload[1], nr );
-                  g_gpiooutputmask |= (1<<nr);
-                  break;
-                
-                case 'i': case 'I': // Not sure why this command is necessary when GS exists and works without clicking
-                  Serial.printf("[%u] GPIO Input request: %s nr: %d\n", num, payload, nr);  
-                  pinMode(GPIO_ID_PIN(nr), INPUT);
-                  ets_sprintf( b, "GI%d\n", nr );
-                  g_gpiooutputmask &= ~(1<<nr);
-                  break;
-                
-                case 'f': case 'F':
+                // Serial.printf("[%u] Got message: %s\n", num, payload);
+                // webSocket.sendTXT(0,"G\t0\t255");
+                // break;
+  
+                // nr = atoi( &textC[2] );
+                nr = atoi( &text[2] );
+                // nr = my_atoi( &textC[2] );
+  
+                if( AFMapper[nr] == 1 ) // Not a GPIO
                 {
-                  Serial.printf("[%u] GPIO fiddle request: %s nr: %d\n", num, payload,nr);  
-                  on = digitalRead( GPIO_ID_PIN(nr) );
-                  on = !on;
-                  pinMode(GPIO_ID_PIN(nr), OUTPUT); // Not sure why this is necessary?
-                  digitalWrite(GPIO_ID_PIN(nr), on );
-                  g_gpiooutputmask |= (1<<nr);
-                  ets_sprintf( b, "GF%d\t%d\n", nr, on );
+                  Serial.printf("[%u] Sorry, not a GPIO: %s\n", num, payload);  
+                  ets_sprintf( b, "!G%c%d\n", payload[1], nr );
+                  webSocket.sendTXT(0,b);
                   break;
                 }
-
-                case 'g': case 'G':
-                  Serial.printf("[%u] GPIO Get request:: %s\n", num, payload);  
-                  ets_sprintf( b, "GG%d\t%d\n", nr, digitalRead( GPIO_ID_PIN(nr) ) );
-                  break;
-
-                case 's': case 'S':
+                else if( AFMapper[nr] ) // It is a GPIO pin
                 {
-                  // Serial.printf("[%u] GPIO Status request:: %s\n", num, payload);  
-                  rmask = 0;
-                  for( i = 0; i < 16; i++ )
+                  PIN_FUNC_SELECT( AFMapper[nr], 3);  //Select AF pin to be GPIO.
+                }
+  
+                switch( payload[1] )
+                {
+                  case '0':
+                  case '1':
+                    Serial.printf("[%u] GPIO Set/Reset request: %s nr: %d\n", num, payload, nr);  
+                    // pinMode(GPIO_ID_PIN(nr), OUTPUT);
+                    digitalWrite(GPIO_ID_PIN(nr), payload[1]-'0' );
+                    ets_sprintf( b, "G%c%d", payload[1], nr );
+                    g_gpiooutputmask |= (1<<nr);
+                    break;
+                  
+                  case 'i': case 'I': // Not sure why this command is necessary when GS exists and works without clicking
+                    Serial.printf("[%u] GPIO Input request: %s nr: %d\n", num, payload, nr);  
+                    pinMode(GPIO_ID_PIN(nr), INPUT);
+                    ets_sprintf( b, "GI%d\n", nr );
+                    g_gpiooutputmask &= ~(1<<nr);
+                    break;
+                  
+                  case 'f': case 'F':
                   {
-                    rmask |= digitalRead( GPIO_ID_PIN(i) )?(1<<i):0;
+                    Serial.printf("[%u] GPIO fiddle request: %s nr: %d\n", num, payload,nr);  
+                    on = digitalRead( GPIO_ID_PIN(nr) );
+                    on = !on;
+                    pinMode(GPIO_ID_PIN(nr), OUTPUT); // Not sure why this is necessary?
+                    digitalWrite(GPIO_ID_PIN(nr), on );
+                    g_gpiooutputmask |= (1<<nr);
+                    ets_sprintf( b, "GF%d\t%d\n", nr, on );
+                    break;
                   }
-                  ets_sprintf( b, "GS\t%d\t%d\n", g_gpiooutputmask, rmask );
-                  break;
+  
+                  case 'g': case 'G':
+                    Serial.printf("[%u] GPIO Get request:: %s\n", num, payload);  
+                    ets_sprintf( b, "GG%d\t%d\n", nr, digitalRead( GPIO_ID_PIN(nr) ) );
+                    break;
+  
+                  case 's': case 'S':
+                  {
+                    // Serial.printf("[%u] GPIO Status request:: %s\n", num, payload);  
+                    rmask = 0;
+                    for( i = 0; i < 16; i++ )
+                    {
+                      rmask |= digitalRead( GPIO_ID_PIN(i) )?(1<<i):0;
+                    }
+                    ets_sprintf( b, "GS\t%d\t%d\n", g_gpiooutputmask, rmask );
+                    break;
+                  }
+  
+                  default:
+                    Serial.printf("[%u] GPIO Unknown request:: %s\n", num, payload);  
+                    break;
                 }
-
-                default:
-                  Serial.printf("[%u] GPIO Unknown request:: %s\n", num, payload);  
-                  break;
+                webSocket.sendTXT(0,b);
               }
-            }
-            webSocket.sendTXT(0,b);
-            break;
+              break;
+
+              case 'S': // Slider
+              {
+                webSocket.sendTXT(0,text); // For now just echo back
+              }
 
             default:
               webSocket.sendTXT(0,"**** UNDEFINED ****");
@@ -199,8 +203,8 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t lenght
               break;
 
             }
-
             break;
+        
         case WStype_BIN:
             Serial.printf("[%u] get binary lenght: %u\n", num, lenght);
             hexdump(payload, lenght);
