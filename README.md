@@ -1,7 +1,7 @@
 ESPSocket: Websockets for ESP8266
 ===========================================
 
-![Connected!](/Connected.png)
+![Connected!](/Screenshots/Connected.png)
 
 This project demostrates WebSockets using the Arduino port of ESP8266. It uses some awesome projects like [arduinoWebSockets](https://github.com/Links2004/arduinoWebSockets) and [ColorChord: Embedded](https://github.com/cnlohr/colorchord). I've tried to port some of the WebSockets functionality from ColorChord: Embedded to work with the Arduino port of ESP8266
 It uses the SPIFFS file system on the ESP8266 to host a bunch of webpages. It also supports OTA firmware updates.
@@ -37,10 +37,10 @@ Note: This is a work in progress! Some things are still broken.
 ##### Screenshots #####
 
  - Uploading html and js files to the [SPIFFS](https://github.com/esp8266/Arduino/blob/master/doc/filesystem.md)
-![SPIFFSupload](/SPIFFSupload.png)
+![SPIFFSupload](/Screenshots/SPIFFSupload.png)
 
  - All tabs expanded
-![All Features](/all.png)
+![All Features](/Screenshots/all.png)
 
  - The filesystem browser edit pane
-![EDIT pange](/EditPane.png)
+![EDIT pange](/Screenshotss/EditPane.png)
