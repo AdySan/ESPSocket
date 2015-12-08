@@ -34,6 +34,19 @@ function IssueSystemMessage( msg )
 	SystemMessageTimeout = setTimeout( function() { SystemMessageTimeout = null; $( "#SystemMessage" ).fadeOut( 'slow' ) }, 3000 );
 }
 
+var SpeedMessageTimeout = null;
+function SpeedMessage( msg )
+{
+	var elem = $( "#SpeedMessage" );
+	elem.hide();
+	elem.html(  "<font size=+2>" + msg + "</font>" );
+	elem.fadeIn( 'fast' );
+	if( SpeedMessageTimeout != null ) clearTimeout(SpeedMessageTimeout);
+	SpeedMessageTimeout = setTimeout( function() { SpeedMessageTimeout = null; $( "#SpeedMessage" ) }, 10000 );
+	// $( "#SpeedMessage" ).fadeOut( 'slow' );
+}
+
+
 function QueueOperation( command, callback )
 {
 	if( workarray[command] == 1 )
@@ -52,8 +65,10 @@ function QueueOperation( command, callback )
 function init()
 {
 	$('#MainMenu > tbody:first-child').before( "\
-		<tr><td width=100%> \
-		<input type=submit onclick=\"ShowHideEvent( 'SystemStatus' );\" value='System Status' id=SystemStatusClicker></td>\
+		<tr><td width=1> \
+		<div class=\"ui-btn ui-input-btn ui-corner-all ui-shadow\"> \
+		System Status<input type=submit onclick=\"ShowHideEvent( 'SystemStatus' );\" value='System Status' id=SystemStatusClicker>\
+		</div> </td>\
 		<td> \
 		<div id=SystemStatus class='collapsible'> \
 		<table width=100% border=1 style=\"border-collapse: collapse;\"><tr><td> \
@@ -61,7 +76,8 @@ function init()
 
 	$('#MainMenu > tbody:last-child').after( "\
 		<tr><td width=1> \
-		<input type=submit onclick=\"ShowHideEvent( 'WifiSettings' ); KickWifiTicker();\" value=\"Wifi Settings\"></td><td> \
+		<div class=\"ui-btn ui-input-btn ui-corner-all ui-shadow\"> \
+		Wifi Settings<input type=submit onclick=\"ShowHideEvent( 'WifiSettings' ); KickWifiTicker();\" value=\"Wifi Settings\"></td></div><td> \
 		<div id=WifiSettings class=\"collapsible\"> \
 		<table width=100% border=1 style=\"border-collapse: collapse;\"><tr><td> \
 		Current Configuration: (May deviate from default configuration, reset here if in doubt)<form name=\"wifisection\" action=\"javascript:ChangeWifiConfig();\"> \
@@ -79,7 +95,8 @@ function init()
 		</td></tr></table></div></td></tr> \
 		 \
 		<tr><td width=1> \
-		<input type=submit onclick=\"ShowHideEvent( 'CustomCommand' );\" value=\"Custom Command\"></td><td> \
+		<div class=\"ui-btn ui-input-btn ui-corner-all ui-shadow\"> \
+		Custom Command<input type=submit onclick=\"ShowHideEvent( 'CustomCommand' );\" value=\"Custom Command\"></td></div><td> \
 		<div id=CustomCommand class=\"collapsible\"> \
 		<table width=100% border=1 style=\"border-collapse: collapse;\"><tr><td> \
 		Command: <input type=text id=custom_command> \
@@ -88,7 +105,8 @@ function init()
 		</td></tr></table></td></tr> \
 		 \
 		<tr><td width=1> \
-		<input type=submit onclick=\"ShowHideEvent( 'GPIOs' ); GPIODataTicker();\" value=\"GPIOs Digital\"></td><td> \
+		<div class=\"ui-btn ui-input-btn ui-corner-all ui-shadow\"> \
+		GPIOs Digital<input type=submit onclick=\"ShowHideEvent( 'GPIOs' ); GPIODataTicker();\" value=\"GPIOs Digital\"></td></div><td> \
 		<div id=GPIOs class=\"collapsible\"> \
 		<table width=100% border=1 style=\"border-collapse: collapse;\"><tr> \
 		<td align=center>D3<input type=button id=ButtonGPIO0 value=0 onclick=\"TwiddleGPIO(0);\"><input type=button id=BGPIOIn0 value=In onclick=\"GPIOInput(0);\" class=\"inbutton\"></td> \
@@ -105,13 +123,15 @@ function init()
 		</tr></table></div></td></tr>\
 		\
 		<tr><td width=1> \
-		<input type=submit onclick=\"ShowHideEvent( 'GPIOAnalog' ); \" value=\"GPIOs Analog\"></td><td> \
+		<div class=\"ui-btn ui-input-btn ui-corner-all ui-shadow\"> \
+		GPIOs Analog<input type=submit onclick=\"ShowHideEvent( 'GPIOAnalog' ); \" value=\"GPIOs Analog\"></td></div><td> \
 		<div id=GPIOAnalog class=\"collapsible\"> \
 		<table width=100% border=1 style=\"border-collapse: collapse;\"><tr> \
 		</tr></table></div></td></tr>\
 		\
 		<tr><td width=1>\
-		<input type=submit onclick=\"ShowHideEvent( 'SystemReflash' );\" value=\"System Reflash\"></td><td>\
+		<div class=\"ui-btn ui-input-btn ui-corner-all ui-shadow\"> \
+		System Reflash<input type=submit onclick=\"ShowHideEvent( 'SystemReflash' );\" value=\"System Reflash\"></td></div><td>\
 		<div id=SystemReflash class=\"collapsible\">\
 		<div id=\"dragandrophandler\">Drag & Drop Files Here</div>\
 		<br><br>\
@@ -182,20 +202,23 @@ function Ticker()
 		time_since_hz++;
 		if( time_since_hz > 3)
 		{
-			$('#SystemStatusClicker').css("color", "red" );
-			$('#SystemStatusClicker').prop( "value", "Offline" );
+			// $('#SystemStatusClicker').css("color", "red" );
+			// $('#SystemStatusClicker').prop( "value", "Offline" );
+			SpeedMessage( "Offline" );
 			if( commsup != 0 && !is_waiting_on_stations ) IssueSystemMessage( "WebSocket Connection Lost..." );
 			commsup = 0;
 			// console.log('Calling StartWebSocket');
 			StartWebSocket();
 		}
 		else
-			$('#SystemStatusClicker').prop( "value", "Online " + 0 + "Hz" );
+			// $('#SystemStatusClicker').prop( "value", "Online " + 0 + " Hz" );
+			SpeedMessage( "Online: " + 0 + "Hz" );
 	}
 	else
 	{
 		time_since_hz = 0;
-		$('#SystemStatusClicker').prop( "value", "Online " + lasthz + "Hz" );
+		// $('#SystemStatusClicker').prop( "value", "Online " + lasthz + " Hz" );
+		SpeedMessage( "Online: " + lasthz + "Hz" );
 	}
 }
 
