@@ -4,6 +4,14 @@ This particular file may be licensed under the MIT/x11, New BSD or ColorChord Li
 <head>
 <title>ESPSocket</title>
 <script language="javascript" type="text/javascript" src=jquery-2.1.4.min.js></script>
+<link rel="stylesheet" href="jquery.mobile-1.4.5.min.css">
+
+<script>
+    $(document).bind('mobileinit',function(){
+        $.mobile.pushStateEnabled = false;
+    });
+</script>
+<script language="javascript" type="text/javascript" src="jquery.mobile-1.4.5.min.js"></script>
 <script language="javascript" type="text/javascript" src=menuinterface.js></script>
 <meta charset="UTF-8">
 <style>
@@ -85,7 +93,7 @@ th {background-color: green; color: white;}
 
 .collapsible { display:none; }
 .inbutton { background-color:blue; }
-#SystemMessage { position: fixed; top: 5px; background-color: DarkSlateBlue; color: #ffffff; left: 5px; display:none; }
+#SystemMessage { position: absolute; top: 5px; right: 5px; background-color: DarkSlateBlue; color: #ffffff; right: 5px; display:none; }
 
 </style>
 </head>
@@ -96,18 +104,33 @@ th {background-color: green; color: white;}
 <table id="MainMenu">
 
 <tbody>
+<!-- <tr> -->
+    <td width=1>
+        <input type=submit onclick="ShowHideEvent( 'Introduction' );" value="Introduction">
+    </td>
+
+    <td>
+        <div id=Introduction class="collapsible">
+        <table border=1 style="border-collapse: collapse; color: #000000; background-color: #EAF2D3;">
+        <tr>
+            <td>
+                <p>Welcome to ESP8266 Interface</p>
+                <p>This project demostrates WebSockets using the Arduino port of ESP8266. It uses some awesome projects like <a href=https://github.com/Links2004/arduinoWebSockets>arduinoWebSockets</a> and <a href=https://github.com/cnlohr/colorchord>ColorChord: Embedded</a>.</p>
+                <p>I've tried to port some of the WebSockets functionality from ColorChord: Embedded to work with the Arduino port of ESP8266</p>
+                <p>It uses the SPIFFS file system on the ESP8266 to host a bunch of webpages. It also supports OTA firmware updates.</p>
+                <p>Note: This is a work in progress! Some things are still broken.</p>
+            </td>
+        </tr>
+        </table>
+        </div>
+    </td>
+<!-- </tr> -->
 
 <tr><td width=1>
-<input type=submit onclick="ShowHideEvent( 'Introduction' );" value="Introduction"></td><td>
+<input type=submit value="Introduction"></td><td>
 <div id=Introduction class="collapsible">
-<table border=1 style="border-collapse: collapse; color: #000000; background-color: #EAF2D3;"><tr><td>
-<p>Welcome to ESP8266 Interface</p>
-<p>This project demostrates WebSockets using the Arduino port of ESP8266. It uses some awesome projects like <a href=https://github.com/Links2004/arduinoWebSockets>arduinoWebSockets</a> and <a href=https://github.com/cnlohr/colorchord>ColorChord: Embedded</a>.</p>
-<p>I've tried to port some of the WebSockets functionality from ColorChord: Embedded to work with the Arduino port of ESP8266</p>
-<p>It uses the SPIFFS file system on the ESP8266 to host a bunch of webpages. It also supports OTA firmware updates.</p>
-<p>Note: This is a work in progress! Some things are still broken.</p>
+</td></tr>
 
-</div></td></tr></table></td></tr>
 
 </tbody>
 

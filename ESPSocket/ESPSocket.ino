@@ -15,8 +15,8 @@ ESP8266WiFiMulti WiFiMulti;
 
 WebSocketsServer webSocket = WebSocketsServer(81);
 
-const char* ssid = "SSID";
-const char* password = "password";
+const char* ssid = "AdyShan";
+const char* password = "aditya1tannu2";
 const char* host = "ESPSocket";
 
 #define LEDPIN D0

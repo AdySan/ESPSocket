@@ -52,8 +52,9 @@ function QueueOperation( command, callback )
 function init()
 {
 	$('#MainMenu > tbody:first-child').before( "\
-		<tr><td width=1> \
-		<input type=submit onclick=\"ShowHideEvent( 'SystemStatus' );\" value='System Status' id=SystemStatusClicker></td><td> \
+		<tr><td width=100%> \
+		<input type=submit onclick=\"ShowHideEvent( 'SystemStatus' );\" value='System Status' id=SystemStatusClicker></td>\
+		<td> \
 		<div id=SystemStatus class='collapsible'> \
 		<table width=100% border=1 style=\"border-collapse: collapse;\"><tr><td> \
 		<div id=output> \n</td></tr></table></div></td></tr>" );
@@ -87,7 +88,7 @@ function init()
 		</td></tr></table></td></tr> \
 		 \
 		<tr><td width=1> \
-		<input type=submit onclick=\"ShowHideEvent( 'GPIOs' ); GPIODataTicker();\" value=\"GPIOs NodeMCU0.9\"></td><td> \
+		<input type=submit onclick=\"ShowHideEvent( 'GPIOs' ); GPIODataTicker();\" value=\"GPIOs Digital\"></td><td> \
 		<div id=GPIOs class=\"collapsible\"> \
 		<table width=100% border=1 style=\"border-collapse: collapse;\"><tr> \
 		<td align=center>D3<input type=button id=ButtonGPIO0 value=0 onclick=\"TwiddleGPIO(0);\"><input type=button id=BGPIOIn0 value=In onclick=\"GPIOInput(0);\" class=\"inbutton\"></td> \
@@ -101,6 +102,12 @@ function init()
 		<td align=center>D7<input type=button id=ButtonGPIO13 value=0 onclick=\"TwiddleGPIO(13);\"><input type=button id=BGPIOIn13 value=In onclick=\"GPIOInput(13);\" class=\"inbutton\"></td> \
 		<td align=center>D5<input type=button id=ButtonGPIO14 value=0 onclick=\"TwiddleGPIO(14);\"><input type=button id=BGPIOIn14 value=In onclick=\"GPIOInput(14);\" class=\"inbutton\"></td> \
 		<td align=center>D8<input type=button id=ButtonGPIO15 value=0 onclick=\"TwiddleGPIO(15);\"><input type=button id=BGPIOIn15 value=In onclick=\"GPIOInput(15);\" class=\"inbutton\"></td> \
+		</tr></table></div></td></tr>\
+		\
+		<tr><td width=1> \
+		<input type=submit onclick=\"ShowHideEvent( 'GPIOAnalog' ); \" value=\"GPIOs Analog\"></td><td> \
+		<div id=GPIOAnalog class=\"collapsible\"> \
+		<table width=100% border=1 style=\"border-collapse: collapse;\"><tr> \
 		</tr></table></div></td></tr>\
 		\
 		<tr><td width=1>\
